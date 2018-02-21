@@ -9,7 +9,7 @@ import { stringify } from 'querystring';
  * WordPress dependencies
  */
 import { __, _x, sprintf } from '@wordpress/i18n';
-import { Component, compose } from '@wordpress/element';
+import { Component, compose, Fragment } from '@wordpress/element';
 import { TreeSelect, withAPIData, withInstanceId, withSpokenMessages } from '@wordpress/components';
 import { buildTermsTree } from '@wordpress/utils';
 
@@ -221,7 +221,7 @@ class HierarchicalTermSelector extends Component {
 	}
 
 	render() {
-		const { label, slug, taxonomy, instanceId } = this.props;
+		const { slug, taxonomy, instanceId } = this.props;
 		const { availableTermsTree, availableTerms, formName, formParent, loading, showForm } = this.state;
 		const labelWithFallback = ( labelProperty, fallbackIsCategory, fallbackIsNotCategory ) => get(
 			taxonomy,
@@ -249,8 +249,7 @@ class HierarchicalTermSelector extends Component {
 
 		/* eslint-disable jsx-a11y/no-onchange */
 		return (
-			<div className="editor-post-taxonomies__hierarchical-terms-selector">
-				<h3 className="editor-post-taxonomies__hierarchical-terms-selector-title">{ label }</h3>
+			<Fragment>
 				{ this.renderTerms( availableTermsTree ) }
 				{ ! loading &&
 					<button
@@ -294,7 +293,7 @@ class HierarchicalTermSelector extends Component {
 						</button>
 					</form>
 				}
-			</div>
+			</Fragment>
 		);
 		/* eslint-enable jsx-a11y/no-onchange */
 	}
